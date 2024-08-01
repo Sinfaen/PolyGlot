@@ -1,0 +1,203 @@
+id: org.darisadesigns.polyglotlina.polyglot
+runtime: org.freedesktop.Platform
+runtime-version: '23.08'
+sdk: org.freedesktop.Sdk
+command: PolyGlot
+finish-args:
+  - --persist=.java
+  - --device=dri # enable gpu acceleration
+  - --share=ipc
+  - --socket=x11
+  # wayland doesn't work?
+  - --socket=pulseaudio
+  - --filesystem=home
+  - --talk-name=org.freedesktop.Flatpak
+modules:
+  - name: PolyGlot
+    buildsystem: simple
+    build-commands:
+      - install -Dm755 PolyGlot /app/bin/PolyGlot
+      - install -Dm755 keytool  /app/bin/keytool
+      - install -Dm755 java     /app/bin/java
+      - install -Dm644 logging.properties     /app/conf/logging.properties
+      - install -Dm644 net.properties         /app/conf/net.properties
+      - install -Dm644 sdp.conf.template      /app/conf/sdp/sdp.conf.template
+      - install -Dm644 java.policy   /app/conf/security/java.policy
+      - install -Dm644 java.security /app/conf/security/java.security
+      - install -Dm644 README.txt    /app/conf/security/policy/README.txt
+      - install -Dm644 l_default_US_export.policy /app/conf/security/policy/limited/default_US_export.policy
+      - install -Dm644 l_default_local.policy     /app/conf/security/policy/limited/default_local.policy
+      - install -Dm644 exempt_local.policy      /app/conf/security/policy/limited/exempt_local.policy
+      - install -Dm644 ul_default_US_export.policy /app/conf/security/policy/unlimited/default_US_export.policy
+      - install -Dm644 ul_default_local.policy     /app/conf/security/policy/unlimited/default_local.policy
+      - install -Dm644 sound.properties   /app/conf/sound.properties
+      - install -Dm644 classfile_constants.h /app/include/classfile_constants.h
+      - install -Dm644 jawt.h       /app/include/jawt.h
+      - install -Dm644 jni.h        /app/include/jni.h
+      - install -Dm644 jvmticmlr.h  /app/include/jvmticmlr.h
+      - install -Dm644 jvmti.h      /app/include/jvmti.h
+      - install -Dm644 jawt_md.h    /app/include/linux/jawt_md.h
+      - install -Dm644 jni_md.h     /app/include/linux/jni_md.h
+      - install -Dm755 classlist          /app/lib/classlist
+      - install -Dm755 jexec              /app/lib/jexec
+      - install -Dm755 jrt-fs.jar         /app/lib/jrt-fs.jar
+      - install -Dm755 jspawnhelper       /app/lib/jspawnhelper
+      - install -Dm755 jvm.cfg            /app/lib/jvm.cfg
+      - install -Dm755 libawt.so          /app/lib/libawt.so
+      - install -Dm755 libawt_headless.so /app/lib/libawt_headless.so
+      - install -Dm755 libawt_xawt.so     /app/lib/libawt_xawt.so
+      - install -Dm755 libfontmanager.so  /app/lib/libfontmanager.so
+      - install -Dm755 libjava.so         /app/lib/libjava.so
+      - install -Dm755 libjavajpeg.so     /app/lib/libjavajpeg.so
+      - install -Dm755 libjawt.so         /app/lib/libjawt.so
+      - install -Dm755 libjimage.so       /app/lib/libjimage.so
+      - install -Dm755 libjli.so          /app/lib/libjli.so
+      - install -Dm755 libjsig.so         /app/lib/libjsig.so
+      - install -Dm755 libjsound.so       /app/lib/libjsound.so
+      - install -Dm755 liblcms.so         /app/lib/liblcms.so
+      - install -Dm755 libmlib_image.so   /app/lib/libmlib_image.so
+      - install -Dm755 libnet.so          /app/lib/libnet.so
+      - install -Dm755 libnio.so          /app/lib/libnio.so
+      - install -Dm755 libprefs.so        /app/lib/libprefs.so
+      - install -Dm755 libsplashscreen.so /app/lib/libsplashscreen.so
+      - install -Dm755 libverify.so       /app/lib/libverify.so
+      - install -Dm755 libzip.so          /app/lib/libzip.so
+      - install -Dm755 modules            /app/lib/modules
+      - install -Dm755 psfont.properties.ja    /app/lib/psfont.properties.ja
+      - install -Dm755 psfontj2d.properties    /app/lib/psfontj2d.properties
+      - install -Dm755 blocked.certs           /app/lib/security/blocked.certs
+      - install -Dm755 cacerts                 /app/lib/security/cacerts
+      - install -Dm755 default.policy          /app/lib/security/default.policy
+      - install -Dm755 public_suffix_list.dat  /app/lib/security/public_suffix_list.dat
+      - install -Dm755 libjsig.so  /app/lib/server/libjsig.so
+      - install -Dm755 libjvm.so   /app/lib/server/libjvm.so
+      - install -Dm755 tzdb.dat    /app/lib/tzdb.dat
+    sources:
+      - type: file
+        path: build/image/bin/PolyGlot
+      - type: file
+        path: build/image/bin/keytool
+      - type: file
+        path: build/image/bin/java
+      - type: file
+        path: build/image/conf/logging.properties
+      - type: file
+        path: build/image/conf/net.properties
+      - type: file
+        path: build/image/conf/sdp/sdp.conf.template
+      - type: file
+        path: build/image/conf/security/java.policy
+      - type: file
+        path: build/image/conf/security/java.security
+      - type: file
+        path: build/image/conf/security/policy/README.txt
+      - type: file
+        dest-filename: l_default_US_export.policy
+        path: build/image/conf/security/policy/limited/default_US_export.policy
+      - type: file
+        dest-filename: l_default_local.policy
+        path: build/image/conf/security/policy/limited/default_local.policy
+      - type: file
+        path: build/image/conf/security/policy/limited/exempt_local.policy
+      - type: file
+        dest-filename: ul_default_US_export.policy
+        path: build/image/conf/security/policy/unlimited/default_US_export.policy
+      - type: file
+        dest-filename: ul_default_local.policy
+        path: build/image/conf/security/policy/unlimited/default_local.policy
+      - type: file
+        path: build/image/conf/sound.properties
+      - type: file
+        path: build/image/lib/classlist
+      - type: file
+        path: build/image/lib/jexec
+      - type: file
+        path: build/image/lib/jrt-fs.jar
+      - type: file
+        path: build/image/lib/jspawnhelper
+      - type: file
+        path: build/image/lib/jvm.cfg
+      - type: file
+        path: build/image/lib/libawt_headless.so
+      - type: file
+        path: build/image/lib/libawt.so
+      - type: file
+        path: build/image/lib/libawt_xawt.so
+      - type: file
+        path: build/image/lib/libfontmanager.so
+      - type: file
+        path: build/image/lib/libjavajpeg.so
+      - type: file
+        path: build/image/lib/libjava.so
+      - type: file
+        path: build/image/lib/libjawt.so
+      - type: file
+        path: build/image/lib/libjimage.so
+      - type: file
+        path: build/image/lib/libjli.so
+      - type: file
+        path: build/image/lib/libjsig.so
+      - type: file
+        path: build/image/lib/libjsound.so
+      - type: file
+        path: build/image/lib/liblcms.so
+      - type: file
+        path: build/image/lib/libmlib_image.so
+      - type: file
+        path: build/image/lib/libnet.so
+      - type: file
+        path: build/image/lib/libnio.so
+      - type: file
+        path: build/image/lib/libprefs.so
+      - type: file
+        path: build/image/lib/libsplashscreen.so
+      - type: file
+        path: build/image/lib/libverify.so
+      - type: file
+        path: build/image/lib/libzip.so
+      - type: file
+        path: build/image/lib/modules
+      - type: file
+        path: build/image/lib/psfontj2d.properties
+      - type: file
+        path: build/image/lib/psfont.properties.ja
+      - type: file
+        path: build/image/lib/security/blocked.certs
+      - type: file
+        path: build/image/lib/security/cacerts
+      - type: file
+        path: build/image/lib/security/default.policy
+      - type: file
+        path: build/image/lib/security/public_suffix_list.dat
+      - type: file
+        path: build/image/lib/server/libjsig.so
+      - type: file
+        path: build/image/lib/server/libjvm.so
+      - type: file
+        path: build/image/lib/tzdb.dat
+      - type: file
+        path: build/image/include/classfile_constants.h
+      - type: file
+        path: build/image/include/jawt.h
+      - type: file
+        path: build/image/include/jni.h
+      - type: file
+        path: build/image/include/jvmticmlr.h
+      - type: file
+        path: build/image/include/jvmti.h
+      - type: file
+        path: build/image/include/linux/jawt_md.h
+      - type: file
+        path: build/image/include/linux/jni_md.h
+  # taken from net.lutris.Lutris.yml
+  - name: libjpeg # with libjpeg.so.8
+    buildsystem: cmake-ninja
+    config-opts:
+      - -DCMAKE_SKIP_RPATH:BOOL=YES
+      - -DENABLE_STATIC:BOOL=NO
+      - -DWITH_JPEG8:BOOL=YES
+      - -DCMAKE_INSTALL_LIBDIR=/app/lib # uses lib64 by default
+    sources:
+      - type: archive
+        url: https://github.com/libjpeg-turbo/libjpeg-turbo/archive/refs/tags/2.1.3.tar.gz
+        sha256: dbda0c685942aa3ea908496592491e5ec8160d2cf1ec9d5fd5470e50768e7859
